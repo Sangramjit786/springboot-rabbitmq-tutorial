@@ -70,6 +70,8 @@ public ResponseEntity<String> sendMessage(@RequestBody String message) {
 
 **💡 Interview Insight:** Demonstrates sync-to-async handoff, REST abstraction over messaging, and clean layering.
 
+---
+
 ### 4. Create RabbitMQ Producer to Produce JSON Message
 
 **Objective:** Extend producer to support structured JSON messages.
@@ -84,6 +86,8 @@ rabbitTemplate.convertAndSend(exchange, routingKey, objectMapper.writeValueAsStr
 ```
 
 **💡 Best Practice:** Structured communication enables type safety and enterprise-grade workflows.
+
+---
 
 ### 5. Create REST API to Send JSON Object
 
@@ -107,6 +111,8 @@ public ResponseEntity<String> sendJson(@RequestBody Order order) {
 
 **💡 Professional Value:** Demonstrates REST + JSON + Messaging integration for real-world systems.
 
+---
+
 ### 6. Create RabbitMQ Consumer to Consume JSON Message
 
 **Objective:** Deserialize JSON into POJO and process business logic.
@@ -123,6 +129,8 @@ Order order = objectMapper.readValue(message, Order.class);
 
 **💡 Best Practice:** Ensures observability, resilience, and type-safe message handling.
 
+---
+
 ## 📝 Summary
 
 This project demonstrates how to:
@@ -133,6 +141,57 @@ This project demonstrates how to:
 - ✅ Ensure decoupling, scalability, and structured communication in distributed systems.
 
 It provides a strong foundation for enterprise-grade event-driven architectures.
+
+## Configure RabbitMQ: 
+Update the connection details in src/main/resources/application.properties:
+```properties
+spring.rabbitmq.host=localhost
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+```
+
+## 📚 Project Structure
+- config/: RabbitMQ configuration (exchanges, queues, bindings)
+- controller/: REST endpoints for message publishing
+- dto/: Data Transfer Objects (DTOs) for message payloads
+- publisher/: RabbitMQ message producers
+- consumer/: Message consumers and handlers
+
+## 📡 API Endpoints
+Publish Text Message
+```
+POST /api/publish
+Content-Type: text/plain
+
+Hello, RabbitMQ!
+```
+Publish JSON Message
+```
+POST /api/publish/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com"
+}
+```
+
+## 🔧 Key Components
+**1. RabbitMQ Configuration**
+- Configures DirectExchange, Queue, and Binding as Spring @Beans
+- Enables message routing and delivery
+**2. Message Producers**
+- RabbitMQProducer: Handles basic text message publishing
+- RabbitMQJsonProducer: Manages JSON message serialization and publishing
+**3. Message Consumers**
+- RabbitMQConsumer: Processes incoming text messages
+- RabbitMQJsonConsumer: Handles and deserializes JSON messages
+**4. REST Controllers**
+- MessageController: Exposes endpoints for text message publishing
+- MessageJsonController: Provides API for JSON message submission
 
 ## 🚀 How to Run
 
@@ -161,6 +220,13 @@ curl -X POST http://localhost:8080/api/publish -d "Hello RabbitMQ"
 curl -X POST http://localhost:8080/api/publishJson -H "Content-Type: application/json" -d '{"id":1,"name":"Test Order"}'
 ```
 
+## 🧪 Testing
+Run the unit tests:
+
+```bash
+mvn test
+```
+
 ## 📚 Tech Stack
 
 - Spring Boot 3
@@ -169,3 +235,9 @@ curl -X POST http://localhost:8080/api/publishJson -H "Content-Type: application
 - RabbitMQ
 - Maven
 - Java 21+
+
+## 📦 Dependencies
+- Spring Boot Starter Web
+- Spring Boot Starter AMQP
+- Lombok (for reducing boilerplate)
+- Jackson (for JSON processing)
