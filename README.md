@@ -113,15 +113,12 @@ public ResponseEntity<String> sendJson(@RequestBody Order order) {
 
 **Implementation Steps:**
 
-Used @RabbitListener(queues = "queue_name").
-
-Deserialized JSON into POJO with Jackson:
-
+- Used @RabbitListener(queues = "queue_name").
+- Deserialized JSON into POJO with Jackson:
+```java
 Order order = objectMapper.readValue(message, Order.class);
+```
+- Implemented business logic like persistence or further processing.
+- Added logging and exception handling.
 
-
-Implemented business logic like persistence or further processing.
-
-Added logging and exception handling.
-
-💡 Best Practice: Ensures observability, resilience, and type-safe message handling.
+**💡 Best Practice:** Ensures observability, resilience, and type-safe message handling.
