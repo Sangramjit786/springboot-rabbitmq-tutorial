@@ -122,3 +122,50 @@ Order order = objectMapper.readValue(message, Order.class);
 - Added logging and exception handling.
 
 **💡 Best Practice:** Ensures observability, resilience, and type-safe message handling.
+
+## 📝 Summary
+
+This project demonstrates how to:
+
+- ✅ Build a Spring Boot 3 app with RabbitMQ integration.
+- ✅ Publish and consume plain text and JSON messages.
+- ✅ Create REST APIs for message publishing.
+- ✅ Ensure decoupling, scalability, and structured communication in distributed systems.
+
+It provides a strong foundation for enterprise-grade event-driven architectures.
+
+## 🚀 How to Run
+
+1. Start RabbitMQ locally (default port 5672).
+
+2. Clone repo:
+```bash
+git clone https://github.com/Sangramjit786/springboot-rabbitmq-tutorial.git
+cd springboot-rabbitmq-tutorial
+```
+
+3. Run the Spring Boot app from IntelliJ or command line:
+```bash
+mvn spring-boot:run
+```
+
+4. Test API:
+
+- Send text:
+```bash
+curl -X POST http://localhost:8080/api/publish -d "Hello RabbitMQ"
+```
+
+- Send JSON:
+```bash
+curl -X POST http://localhost:8080/api/publishJson -H "Content-Type: application/json" -d '{"id":1,"name":"Test Order"}'
+```
+
+## 📚 Tech Stack
+
+- Spring Boot 3
+- Spring Web
+- Spring AMQP
+- RabbitMQ
+- Maven
+- Java 21+
